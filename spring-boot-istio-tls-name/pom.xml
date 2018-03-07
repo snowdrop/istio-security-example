@@ -27,6 +27,8 @@
 
   <artifactId>spring-boot-istio-tls-name</artifactId>
 
+  <name>Spring Boot Istio Mutual TLS :: Name Service</name>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -17,22 +17,31 @@
 package io.openshift.booster;
 
 import com.jayway.restassured.RestAssured;
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
+import io.openshift.booster.service.NameServiceProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import static com.jayway.restassured.RestAssured.when;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BoosterApplicationTest {
+public class GreetingApplicationTest {
+
+    @MockBean
+    private RestTemplate mockRestTemplate;
+
+    @Autowired
+    private NameServiceProperties nameServiceProperties;
 
     @Value("${local.server.port}")
     private int port;
@@ -40,17 +49,18 @@ public class BoosterApplicationTest {
     @Before
     public void setup() {
         RestAssured.baseURI = String.format("http://localhost:%s/api", port);
+
+        given(mockRestTemplate.getForObject(nameServiceProperties.getUrl(), String.class)).willReturn("World");
     }
 
     @Test
-    public void shouldGetName() {
-        when().get("name")
+    public void shouldGetGreeting() {
+        when().get("greeting")
                 .then()
                 .assertThat()
                 .statusCode(is(equalTo(200)))
                 .and()
-                .body(is(equalTo("World")));
+                .body(is(equalTo("Hello, World!")));
     }
-
 
 }

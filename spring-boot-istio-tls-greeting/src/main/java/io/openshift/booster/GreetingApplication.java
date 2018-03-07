@@ -18,12 +18,20 @@ package io.openshift.booster;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class BoosterApplication {
+public class GreetingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BoosterApplication.class, args);
+        SpringApplication.run(GreetingApplication.class, args);
+    }
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+        return restTemplateBuilder.build();
     }
 
 }
