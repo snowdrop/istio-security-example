@@ -30,7 +30,7 @@
   <version>1.5.10-1-SNAPSHOT</version>
 
   <modules>
-    <module>spring-boot-istio-tls-greeting</module>
     <module>spring-boot-istio-tls-name</module>
+    <module>spring-boot-istio-tls-greeting</module>
   </modules>
 </project>

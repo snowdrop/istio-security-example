@@ -16,23 +16,23 @@
 
 package io.openshift.booster.service;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@RestController
-public class NameController {
+/**
+ * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
+ */
+@Component
+@ConfigurationProperties
+public class NameProperties {
 
-    private final NameProperties nameProperties;
+    private String name = "World";
 
-    public NameController(NameProperties nameProperties) {
-        this.nameProperties = nameProperties;
-    }
-
-    @CrossOrigin // Enable access from the greeting index.html
-    @RequestMapping("/api/name")
     public String getName() {
-        return nameProperties.getName();
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

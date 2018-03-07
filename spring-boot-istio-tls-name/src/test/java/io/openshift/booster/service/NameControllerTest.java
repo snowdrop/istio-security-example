@@ -16,17 +16,35 @@
 
 package io.openshift.booster.service;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
+@RunWith(MockitoJUnitRunner.class)
 public class NameControllerTest {
+
+    @Mock
+    private NameProperties mockNameProperties;
+
+    private NameController nameController;
+
+    @Before
+    public void before() {
+        nameController = new NameController(mockNameProperties);
+    }
 
     @Test
     public void shouldGetName() {
-        NameController controller = new NameController();
-        String name = controller.getName();
-        assertThat(name).isEqualTo("World");
+        given(mockNameProperties.getName()).willReturn("Test");
+
+        String name = nameController.getName();
+
+        assertThat(name).isEqualTo("Test");
     }
 
 }
