@@ -1,4 +1,4 @@
-#Running application locally
+# Running application locally
 
 Start name server in terminal 1
 ```
@@ -15,4 +15,10 @@ mvn spring-boot:run -Drun.arguments="--name.url=http://localhost:8080/api/name,-
 Invoke greeting service in terminal 3
 ```
 curl http://localhost:8081/api/greeting
+```
+
+# Deploy to OpenShift
+
+```
+mvn fabric8:deploy -Popenshift
 ```

@@ -22,7 +22,7 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-istio-tls-parent</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1.5.10-1-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-istio-tls-greeting</artifactId>

@@ -31,7 +31,10 @@ public class GreetingApplication {
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
+        return restTemplateBuilder
+                .setConnectTimeout(1000)
+                .setReadTimeout(1000)
+                .build();
     }
 
 }

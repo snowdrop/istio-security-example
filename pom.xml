@@ -22,12 +22,12 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-booster-parent</artifactId>
-    <version>1.5.10.Beta2</version>
+    <version>1.5.10-13</version>
   </parent>
 
   <artifactId>spring-boot-istio-tls-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1-SNAPSHOT</version>
+  <version>1.5.10-1-SNAPSHOT</version>
 
   <modules>
     <module>spring-boot-istio-tls-greeting</module>
