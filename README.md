@@ -28,3 +28,17 @@ Undeploy from OpenShift
 ```
 mvn fabric8:undeploy
 ```
+
+# Running with Istio on OpenShift
+
+oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-grafana-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n istio-system
+
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.4.0 sh -
+cd istio-0.4.0
+export PATH=$PWD/bin:$PATH
+oc login -u system:admin
+kubectl apply -f install/kubernetes/istio-auth.yaml
+oc expose svc istio-ingress -n istio-system
+oc get route/istio-ingress -n istio-system

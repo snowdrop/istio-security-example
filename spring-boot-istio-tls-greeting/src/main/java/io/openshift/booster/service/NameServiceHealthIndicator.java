@@ -16,29 +16,29 @@
 
 package io.openshift.booster.service;
 
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.stereotype.Component;
-
-@Component
-public class NameServiceHealthIndicator implements HealthIndicator {
-
-    private final NameService nameService;
-
-    public NameServiceHealthIndicator(NameService nameService) {
-        this.nameService = nameService;
-    }
-
-    @Override
-    public Health health() {
-        try {
-            nameService.getName();
-        } catch (Throwable ignored) {
-            return Health.down()
-                    .build();
-        }
-
-        return Health.up()
-                .build();
-    }
-}
+//import org.springframework.boot.actuate.health.Health;
+//import org.springframework.boot.actuate.health.HealthIndicator;
+//import org.springframework.stereotype.Component;
+//
+//@Component
+//public class NameServiceHealthIndicator implements HealthIndicator {
+//
+//    private final NameService nameService;
+//
+//    public NameServiceHealthIndicator(NameService nameService) {
+//        this.nameService = nameService;
+//    }
+//
+//    @Override
+//    public Health health() {
+//        try {
+//            nameService.getName();
+//        } catch (Throwable ignored) {
+//            return Health.down()
+//                    .build();
+//        }
+//
+//        return Health.up()
+//                .build();
+//    }
+//}

@@ -16,7 +16,6 @@
 
 package io.openshift.booster.service;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +28,6 @@ public class NameController {
         this.nameProperties = nameProperties;
     }
 
-    @CrossOrigin // Enable access from the greeting index.html
     @RequestMapping("/api/name")
     public String getName() {
         return nameProperties.getName();

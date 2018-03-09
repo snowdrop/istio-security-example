@@ -59,7 +59,7 @@
         crossorigin="anonymous"></script>
 <script>
     var currentLocation = window.location.origin;
-    var nameServiceUrlBase = currentLocation.indexOf("localhost") !== -1 ? "http://localhost:8080" : currentLocation.replace("greeting", "name");
+    var nameServiceUrlBase = currentLocation.indexOf("localhost") !== -1 ? "http://localhost:8080" : currentLocation;
 
     function get(url, container) {
         $.get(url)
