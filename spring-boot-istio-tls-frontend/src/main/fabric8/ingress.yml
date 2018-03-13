@@ -16,3 +16,7 @@ spec:
         backend:
           serviceName: ${project.artifactId}
           servicePort: 8080
+      - path: /api/name
+        backend:
+          serviceName: ${project.artifactId}
+          servicePort: 8080

@@ -75,5 +75,6 @@
   <modules>
     <module>spring-boot-istio-tls-name</module>
     <module>spring-boot-istio-tls-greeting</module>
+    <module>spring-boot-istio-tls-frontend</module>
   </modules>
 </project>

@@ -21,30 +21,35 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GreetingControllerTest {
+public class NameServiceTest {
 
     @Mock
-    private NameService mockNameService;
+    private RestTemplate mockRestTemplate;
 
-    private GreetingController greetingController;
+    @Mock
+    private NameServiceProperties mockNameServiceProperties;
+
+    private NameService nameService;
 
     @Before
     public void before() {
-        greetingController = new GreetingController(mockNameService);
+        nameService = new NameService(mockRestTemplate, mockNameServiceProperties);
     }
 
     @Test
-    public void shouldGetGreeting() {
-        given(mockNameService.getName()).willReturn("World");
+    public void shouldGetName() {
+        given(mockNameServiceProperties.getUrl()).willReturn("test-host");
+        given(mockRestTemplate.getForObject("test-host", String.class)).willReturn("test-name");
 
-        String greeting = greetingController.getGreeting();
+        String name = nameService.getName();
 
-        assertThat(greeting).isEqualTo("Hello, World!");
+        assertThat(name).isEqualTo("test-name");
     }
 
 }

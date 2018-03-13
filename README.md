@@ -1,23 +1,47 @@
-# Running application locally
+# Install Istio
 
-Start name server in terminal 1
+Create Istio service accounts
 ```
-cd spring-boot-istio-tls-name
-mvn clean spring-boot:run
-```
-
-Start greeting server in terminal 2
-```
-cd spring-boot-istio-tls-greeting
-mvn clean spring-boot:run -Drun.arguments="--name.url=http://localhost:8080/api/name,--server.port=8081"
+oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-grafana-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n istio-system
 ```
 
-Invoke greeting service in terminal 3
+Download Istio
 ```
-curl http://localhost:8081/api/greeting
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.4.0 sh -
 ```
 
-# Running application on OpenShift
+Install Istio
+```
+cd istio-0.4.0
+export PATH=$PWD/bin:$PATH
+oc login -u system:admin
+kubectl apply -f install/kubernetes/istio-auth.yaml
+```
+
+Create Ingress route
+```
+oc expose svc istio-ingress -n istio-system
+oc get route/istio-ingress -n istio-system
+```
+
+# Prepare the Namespace
+
+> This mission assumes that `myproject` namespace is used.
+
+Create the namespace if one doesn't exist
+```
+oc new-project myproject
+```
+
+Give required permissions to the service accounts used by the booster
+```
+oc adm policy add-scc-to-user privileged -n myproject -z sa-frontend
+oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
+```
+
+# Deploy the Application
 
 Deploy to OpenShift
 ```
@@ -29,16 +53,11 @@ Undeploy from OpenShift
 mvn fabric8:undeploy
 ```
 
-# Running with Istio on OpenShift
+# Use the Application
 
-oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-grafana-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n istio-system
+Get ingress route (further refered as ${INGRESS_ROUTE})
+```
+oc get route -n istio-system
+```
 
-curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.4.0 sh -
-cd istio-0.4.0
-export PATH=$PWD/bin:$PATH
-oc login -u system:admin
-kubectl apply -f install/kubernetes/istio-auth.yaml
-oc expose svc istio-ingress -n istio-system
-oc get route/istio-ingress -n istio-system
+Copy and paste HOST/PORT value returned by the previous command to your browser.

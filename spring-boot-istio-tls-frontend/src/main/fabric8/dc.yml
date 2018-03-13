@@ -3,7 +3,7 @@ kind: DeploymentConfig
 spec:
 #  template:
 #    spec:
-#      serviceAccount: sa-greeting
+#      serviceAccount: sa-frontend
   triggers:
     # If we add these lines, then istio enricher will be able to include all the triggers !!!!!
     - type: ConfigChange
