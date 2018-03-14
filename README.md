@@ -37,7 +37,6 @@ oc new-project myproject
 
 Give required permissions to the service accounts used by the booster
 ```
-oc adm policy add-scc-to-user privileged -n myproject -z sa-frontend
 oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
 ```
 

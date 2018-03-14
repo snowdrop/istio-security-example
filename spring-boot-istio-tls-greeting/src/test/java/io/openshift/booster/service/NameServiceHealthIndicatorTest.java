@@ -16,49 +16,49 @@
 
 package io.openshift.booster.service;
 
-//import org.junit.Before;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.mockito.Mock;
-//import org.mockito.runners.MockitoJUnitRunner;
-//import org.springframework.boot.actuate.health.Health;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.boot.actuate.health.Health;
 
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.mockito.BDDMockito.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 
-//@RunWith(MockitoJUnitRunner.class)
-//public class NameServiceHealthIndicatorTest {
+@RunWith(MockitoJUnitRunner.class)
+public class NameServiceHealthIndicatorTest {
 
-//    @Mock
-//    private NameService mockNameService;
-//
-//    private NameServiceHealthIndicator nameServiceHealthIndicator;
-//
-//    @Before
-//    public void before() {
-//        nameServiceHealthIndicator = new NameServiceHealthIndicator(mockNameService);
-//    }
-//
-//    @Test
-//    public void shouldIndicateHealthy() {
-//        given(mockNameService.getName()).willReturn("World");
-//
-//        Health actual = nameServiceHealthIndicator.health();
-//        Health expected = Health.up()
-//                .build();
-//
-//        assertThat(actual).isEqualTo(expected);
-//    }
-//
-//    @Test
-//    public void shouldIndicateUnhealthy() {
-//        given(mockNameService.getName()).willThrow(new RuntimeException());
-//
-//        Health actual = nameServiceHealthIndicator.health();
-//        Health expected = Health.down()
-//                .build();
-//
-//        assertThat(actual).isEqualTo(expected);
-//    }
+    @Mock
+    private NameService mockNameService;
 
-//}
+    private NameServiceHealthIndicator nameServiceHealthIndicator;
+
+    @Before
+    public void before() {
+        nameServiceHealthIndicator = new NameServiceHealthIndicator(mockNameService);
+    }
+
+    @Test
+    public void shouldIndicateHealthy() {
+        given(mockNameService.getName()).willReturn("World");
+
+        Health actual = nameServiceHealthIndicator.health();
+        Health expected = Health.up()
+                .build();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldIndicateUnhealthy() {
+        given(mockNameService.getName()).willThrow(new RuntimeException());
+
+        Health actual = nameServiceHealthIndicator.health();
+        Health expected = Health.down()
+                .build();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+}
