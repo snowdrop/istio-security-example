@@ -43,14 +43,14 @@ oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
 
 # Deploy the Application
 
-Deploy to OpenShift
+Build application images
 ```
-mvn clean fabric8:deploy -Popenshift
+mvn clean package fabric8:build -Popenshift
 ```
 
-Undeploy from OpenShift
+Deploy the application
 ```
-mvn fabric8:undeploy
+oc apply -f <(istioctl kube-inject -f rules/booster.yml)
 ```
 
 # Use the Application
@@ -61,3 +61,20 @@ oc get route -n istio-system
 ```
 
 Copy and paste HOST/PORT value returned by the previous command to your browser.
+
+Only allow greeting service access to the name service
+```
+istioctl create -f rules/rule-require-service-account.yml -n myproject
+```
+
+# Cleanup
+
+Remove Istio rule
+```
+istioctl delete -f rules/rule-require-service-account.yml -n myproject
+```
+
+Undeploy the application
+```
+oc delete -f <(istioctl kube-inject -f rules/booster.yml)
+```

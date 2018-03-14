@@ -1,0 +1,138 @@
+---
+###########################
+# Name Service
+###########################
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-istio-tls-name
+  labels:
+    app: spring-boot-istio-tls-name
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: spring-boot-istio-tls-name
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-boot-istio-tls-name
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-boot-istio-tls-name
+    spec:
+      containers:
+      - name: spring-boot
+        image: spring-boot-istio-tls-name:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+###########################
+# Greeting Service
+###########################
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-greeting
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-istio-tls-greeting
+  labels:
+    app: spring-boot-istio-tls-greeting
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: spring-boot-istio-tls-greeting
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-boot-istio-tls-greeting
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-boot-istio-tls-greeting
+    spec:
+      serviceAccountName: sa-greeting
+      containers:
+      - name: spring-boot
+        image: spring-boot-istio-tls-greeting:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+###########################
+# Front end
+###########################
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-istio-tls-frontend
+  labels:
+    app: spring-boot-istio-tls-frontend
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: spring-boot-istio-tls-frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-boot-istio-tls-frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-boot-istio-tls-frontend
+    spec:
+      serviceAccountName: sa-frontend
+      containers:
+      - name: spring-boot
+        image: spring-boot-istio-tls-frontend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spring-boot-istio-tls-frontend
+          servicePort: 8080
+      - path: /api/greeting
+        backend:
+          serviceName: spring-boot-istio-tls-frontend
+          servicePort: 8080
+      - path: /api/name
+        backend:
+          serviceName: spring-boot-istio-tls-frontend
+          servicePort: 8080
+---
