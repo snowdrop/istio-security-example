@@ -42,14 +42,8 @@ oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
 
 # Deploy the Application
 
-Build application images
 ```
-mvn clean package fabric8:build -Popenshift
-```
-
-Deploy the application
-```
-oc apply -f <(istioctl kube-inject -f rules/booster.yml)
+mvn clean fabric8:deploy -Popenshift
 ```
 
 # Use the Application
@@ -75,5 +69,5 @@ istioctl delete -f rules/rule-require-service-account.yml -n myproject
 
 Undeploy the application
 ```
-oc delete -f <(istioctl kube-inject -f rules/booster.yml)
+mvn fabric8:undeploy
 ```
