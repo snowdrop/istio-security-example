@@ -9,15 +9,15 @@ oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n isti
 
 Download Istio
 ```
-curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.4.0 sh -
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.7.1 sh -
 ```
 
 Install Istio
 ```
-cd istio-0.4.0
+cd istio-0.7.1
 export PATH=$PWD/bin:$PATH
 oc login -u system:admin
-kubectl apply -f install/kubernetes/istio-auth.yaml
+oc apply -f install/kubernetes/istio-auth.yaml
 ```
 
 Create Ingress route
@@ -41,10 +41,12 @@ oc adm policy add-scc-to-user privileged -n myproject -z default
 oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
 ```
 
-# Deploy the Application
+# Build and deploy the Application with manual sidecar injection
 
 ```
-mvn clean fabric8:deploy -Popenshift
+mvn clean package fabric8:build -Popenshift
+oc apply -f <(istioctl kube-inject -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml)
+oc apply -f <(istioctl kube-inject -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml)
 ```
 
 # Use the Application
@@ -70,5 +72,6 @@ istioctl delete -f rules/rule-require-service-account.yml -n myproject
 
 Undeploy the application
 ```
-mvn fabric8:undeploy
+oc delete -f <(istioctl kube-inject -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml)
+oc delete -f <(istioctl kube-inject -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml)
 ```
