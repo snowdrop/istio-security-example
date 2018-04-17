@@ -7,7 +7,7 @@ oc adm policy add-scc-to-user anyuid -z istio-grafana-service-account -n istio-s
 oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n istio-system
 ```
 
-Download Istio
+Download and install the Istio Admin CLI
 ```
 curl -L https://git.io/getLatestIstio | ISTIO_VERSION=0.7.1 sh -
 ```
@@ -30,15 +30,10 @@ oc get route/istio-ingress -n istio-system
 
 > This mission assumes that `myproject` namespace is used.
 
-Create the namespace if one doesn't exist
+Create the namespace if one doesn't exist, also prepare the environment for Istio automatic sidecar injection.
 ```
 oc new-project myproject
-```
-
-Give required permissions to the service accounts used by the booster
-```
-oc adm policy add-scc-to-user privileged -n myproject -z default
-oc adm policy add-scc-to-user privileged -n myproject -z sa-greeting
+oc label namespace myproject istio-injection=enabled
 ```
 
 # Build the application
@@ -51,13 +46,14 @@ mvn clean package fabric8:build -Popenshift
 
 ## Scenario 1. Calling service is deployed outside of the service mesh
 
-Deploy a `name` service with an Istio sidecar and a `greeting` service without one. 
+Deploy a `name` service with an Istio sidecar and a `greeting` service without one.
 ```
 oc apply -f <(istioctl kube-inject -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml)
 oc apply -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-``` 
+```
 
 Access application through the `greeting` service's route.
+
 ```
 oc get route/spring-boot-istio-tls-greeting
 ```
@@ -81,8 +77,8 @@ oc apply -f <(istioctl kube-inject -f spring-boot-istio-tls-greeting/target/clas
 ```
 
 Access application through the Istio ingress route.
-```
-oc get route/istio-ingress -n istio-system
+```bash
+echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
 ```
 
 Once the application is fully deployed, you should be able to access an HTTP page through the Istio ingress route. In
@@ -104,7 +100,7 @@ After application is deployed, configure Istio Mixer, to require a `sa-greeting`
 istioctl create -f rules/rule-require-service-account.yml -n myproject
 ```
 
-Now only a `greeting` service can access the `name` service. Thus, only invoke `greeting` service action should succeed. 
+Now only a `greeting` service can access the `name` service. Thus, only invoke `greeting` service action should succeed.
 
 Cleanup
 ```
