@@ -12,10 +12,10 @@ oc new-project istio-mutual-tls
 oc label namespace istio-mutual-tls istio-injection=enabled
 ```
 
-# Build the application
+# Build and deploy the application
 
 ```
-mvn clean package fabric8:build -Popenshift
+mvn clean package fabric8:deploy -Popenshift
 ```
 
 # Use cases
@@ -24,13 +24,14 @@ mvn clean package fabric8:build -Popenshift
 
 This scenario demonstrates a mutual transport level security between the services.
 
-1. Deploy a name service inside the service mesh
+1. Open a booster’s web page via Istio ingress route
     ```
-    oc apply -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
+    echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
     ```
-1. Deploy a greeting service outside the service mesh
+1. Both greeting and name invocations will succeed.
+1. Now modify greeting deployment to disable sidecar injection by replacing all `sidecar.istio.io/inject` values to `false`
     ```
-    oc apply -f <(sed -e 's/sidecar.istio.io\/inject: "true"/sidecar.istio.io\/inject: "false"/g' spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml)
+    oc edit deploymentconfigs/spring-boot-istio-tls-greeting
     ```
 1. Open a booster’s web page via greeting service’s route
     ```
@@ -38,33 +39,15 @@ This scenario demonstrates a mutual transport level security between the service
     ```
 1. Greeting service invocation will fail with a reset connection, because the greeting service has to be inside a service mesh in order to access the name service.
 1. *Name service invocation will fail because the web page will try to access name service via its route, which doesn’t exist. Need to fix this to go through the ingress somehow.*
-1. Deploy a greeting service inside the service mesh
+1. Cleanup by setting `sidecar.istio.io/inject` values to true
     ```
-    oc apply -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    ```
-1. Open a booster’s web page via Istio ingress route
-    ```
-    echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
-    ```
-1. Both greeting and name invocations will succeed.
-1. Cleanup
-    ```
-    oc delete -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    oc delete -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
+    oc edit deploymentconfigs/spring-boot-istio-tls-greeting
     ```
 
 ## Scenario #2. Access control
 
 This scenario demonstrates access control when using mutual TLS. In order to access a name service, calling service has to have a specific label and service account name.
 
-1. Deploy a name service inside the service mesh
-    ```
-    oc apply -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
-    ```
-1. Deploy a greeting service inside the service mesh
-    ```
-    oc apply -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    ```
 1. Open a booster’s web page via Istio ingress route
     ```
     echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
@@ -78,22 +61,12 @@ This scenario demonstrates access control when using mutual TLS. In order to acc
 1. Cleanup
     ```
     oc delete -f rules/require-service-account-and-label.yml
-    oc delete -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    oc delete -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
     ```
 
 ## Scenario #3. Role based access control
 
 This scenario demonstrates Istio’s RBAC feature where specific service roles are configured to access greeting and name services.
 
-1. Deploy a name service inside the service mesh
-    ```
-    oc apply -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
-    ```
-1. Deploy a greeting service inside the service mesh
-    ```
-    oc apply -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    ```
 1. Open a booster’s web page via Istio ingress route
     ```
     echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
@@ -119,6 +92,10 @@ This scenario demonstrates Istio’s RBAC feature where specific service roles a
     oc delete -f rules/name-rbac.yml
     oc delete -f rules/greeting-rbac.yml
     oc delete -f rules/enable-rbac.yml
-    oc delete -f spring-boot-istio-tls-greeting/target/classes/META-INF/fabric8/openshift.yml
-    oc delete -f spring-boot-istio-tls-name/target/classes/META-INF/fabric8/openshift.yml
     ```
+
+# Undeploy the application
+
+```
+mvn fabric8:undeploy
+```
