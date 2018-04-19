@@ -1,0 +1,21 @@
+apiVersion: "config.istio.io/v1alpha2"
+kind: ServiceRole
+metadata:
+  name: name-viewer
+  namespace: istio-mutual-tls
+spec:
+  rules:
+  - services: ["spring-boot-istio-tls-name.istio-mutual-tls.svc.cluster.local"]
+    methods: ["GET"]
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: ServiceRoleBinding
+metadata:
+  name: name-viewer-binding
+  namespace: istio-mutual-tls
+spec:
+  subjects:
+  - user: "cluster.local/ns/istio-mutual-tls/sa/sa-greeting"
+  roleRef:
+    kind: ServiceRole
+    name: "name-viewer"
