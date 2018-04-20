@@ -19,6 +19,13 @@ oc label namespace istio-mutual-tls istio-injection=enabled
 mvn clean package fabric8:deploy -Popenshift
 ```
 
+## With S2I build
+```
+find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
+oc new-app --template=spring-boot-istio-tls-name -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-tls-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-tls-name
+oc new-app --template=spring-boot-istio-tls-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-tls-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-tls-greeting
+```
+
 # Use cases
 
 ##Scenario #1. Mutual TLS
@@ -101,8 +108,16 @@ This scenario demonstrates Istio’s RBAC feature where specific service roles a
 
 # Undeploy the application
 
+## With Fabric8 Maven Plugin
 ```
 mvn fabric8:undeploy
+```
+
+## With S2I build
+```
+oc delete all --all
+oc delete ingress --all
+find . | grep openshiftio | grep application | xargs -n 1 oc delete -f
 ```
 
 # Remove the namespace
