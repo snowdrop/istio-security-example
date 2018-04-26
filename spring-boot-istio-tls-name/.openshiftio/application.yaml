@@ -4,7 +4,7 @@ metadata:
   name: spring-boot-istio-tls-name
   annotations:
     iconClass: icon-spring
-    tags: spring-boot, mutual tls, rbac, java, microservice
+    tags: spring-boot, mutual tls, java, microservice
     openshift.io/display-name: Spring Boot Istio Mutual TLS - Name Service
     openshift.io/provider-display-name: "Red Hat, Inc."
 parameters:
