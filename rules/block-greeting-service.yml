@@ -18,7 +18,7 @@ kind: rule
 metadata:
   name: denynameserviceaccess
 spec:
-  match: destination.labels["app"] == "spring-boot-istio-tls-name" && source.labels["app"] == "spring-boot-istio-tls-greeting"
+  match: destination.labels["app"] == "spring-boot-istio-security-name" && source.labels["app"] == "spring-boot-istio-security-greeting"
   actions:
   - handler: denynameservicehandler.denier
     instances: [ denynameservicerequest.checknothing ]

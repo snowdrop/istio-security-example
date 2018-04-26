@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("name")
 public class NameServiceProperties {
 
-    private String url = "http://spring-boot-istio-tls-name:8080/api/name";
+    private String url = "http://spring-boot-istio-security-name:8080/api/name";
 
     public String getUrl() {
         return url;
