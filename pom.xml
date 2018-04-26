@@ -22,12 +22,14 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-booster-parent</artifactId>
-    <version>1.5.10-13</version>
+    <version>1.5.12-3</version>
   </parent>
 
   <artifactId>spring-boot-istio-tls-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.5.10-1-SNAPSHOT</version>
+  <version>1.5.12-1-SNAPSHOT</version>
+
+  <name>Spring Boot - Istio - Mutual TLS - Parent</name>
 
   <properties>
     <skip.fmp>true</skip.fmp>
