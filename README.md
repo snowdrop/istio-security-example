@@ -21,7 +21,7 @@ project perfectly satisfies aforementioned requirements
 # Environment preparation
 
 ```bash
-    oc new-project istio-mutual-tls
+    oc new-project istio-security
 ```
 
 **CAUTION**
@@ -43,8 +43,8 @@ mvn clean package fabric8:deploy -Popenshift
 ## With S2I build
 ```bash
 find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
-oc new-app --template=spring-boot-istio-tls-name -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-tls-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-tls-name
-oc new-app --template=spring-boot-istio-tls-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-tls-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-tls-greeting
+oc new-app --template=spring-boot-istio-security-name -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-security-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-name
+oc new-app --template=spring-boot-istio-security-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-security-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-greeting
 ```
 
 # Use cases
@@ -60,16 +60,16 @@ This scenario demonstrates a mutual transport level security between the service
 1. "Hello, World!" should be returned after invoking `greeting` service.
 1. Now modify greeting deployment to disable sidecar injection by replacing all `sidecar.istio.io/inject` values to `false`
     ```bash
-    oc edit deploymentconfigs/spring-boot-istio-tls-greeting
+    oc edit deploymentconfigs/spring-boot-istio-security-greeting
     ```
 1. Open a booster’s web page via `greeting` service’s route
     ```bash
-    echo http://$(oc get route spring-boot-istio-tls-greeting -o jsonpath='{.spec.host}{"\n"}' -n istio-mutual-tls)/
+    echo http://$(oc get route spring-boot-istio-security-greeting -o jsonpath='{.spec.host}{"\n"}' -n istio-security)/
     ```
 1. `Greeting` service invocation will fail with a reset connection, because the `greeting` service has to be inside a service mesh in order to access the `name` service.
 1. Cleanup by setting `sidecar.istio.io/inject` values to true
     ```bash
-    oc edit deploymentconfigs/spring-boot-istio-tls-greeting
+    oc edit deploymentconfigs/spring-boot-istio-security-greeting
     ```
 
 ## Scenario #2. Access control
@@ -113,5 +113,5 @@ find . | grep openshiftio | grep application | xargs -n 1 oc delete -f
 # Remove the namespace
 
 ```bash
-oc delete project istio-mutual-tls
+oc delete project istio-security
 ```

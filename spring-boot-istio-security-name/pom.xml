@@ -21,13 +21,13 @@
 
   <parent>
     <groupId>io.openshift.booster</groupId>
-    <artifactId>spring-boot-istio-tls-parent</artifactId>
+    <artifactId>spring-boot-istio-security-parent</artifactId>
     <version>1.5.12-1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>spring-boot-istio-tls-greeting</artifactId>
+  <artifactId>spring-boot-istio-security-name</artifactId>
 
-  <name>Spring Boot - Istio - Mutual TLS - Greeting Service</name>
+  <name>Spring Boot - Istio - Security - Name Service</name>
 
   <properties>
     <skip.fmp>false</skip.fmp>
@@ -44,4 +44,25 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>openshift</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>fabric8-maven-plugin</artifactId>
+            <configuration>
+              <enricher>
+                <excludes>
+                  <exclude>fmp-openshift-route</exclude>
+                </excludes>
+              </enricher>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

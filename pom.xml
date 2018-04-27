@@ -25,11 +25,11 @@
     <version>1.5.12-3</version>
   </parent>
 
-  <artifactId>spring-boot-istio-tls-parent</artifactId>
+  <artifactId>spring-boot-istio-security-parent</artifactId>
   <packaging>pom</packaging>
   <version>1.5.12-1-SNAPSHOT</version>
 
-  <name>Spring Boot - Istio - Mutual TLS - Parent</name>
+  <name>Spring Boot - Istio - Security - Parent</name>
 
   <properties>
     <skip.fmp>true</skip.fmp>
@@ -63,7 +63,7 @@
   </profiles>
 
   <modules>
-    <module>spring-boot-istio-tls-name</module>
-    <module>spring-boot-istio-tls-greeting</module>
+    <module>spring-boot-istio-security-name</module>
+    <module>spring-boot-istio-security-greeting</module>
   </modules>
 </project>
