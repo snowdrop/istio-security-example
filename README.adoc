@@ -68,7 +68,7 @@ oc edit deploymentconfigs/spring-boot-istio-security-greeting
 1. Open the booster’s web page via `greeting` service’s route
 +
 ```bash
-echo http://$(oc get route spring-boot-istio-security-greeting -o jsonpath='{.spec.host}{"\n"}' -n istio-security)/
+echo http://$(oc get route spring-boot-istio-security-greeting -o jsonpath='{.spec.host}{"\n"}' -n $(oc project -q))/
 ```
 1. `Greeting` service invocation will fail with a reset connection, because the `greeting` service has to be inside a service mesh in order to access the `name` service.
 1. Cleanup by setting `sidecar.istio.io/inject` values to true
