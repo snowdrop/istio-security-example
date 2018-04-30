@@ -96,7 +96,7 @@ oc apply -f rules/block-greeting-service.yml
 1. Configure Istio Mixer to only allow requests from `greeting` service and with `sa-greeting` service account to access `name` service
 +
 ```bash
-oc apply -f rules/require-service-account-and-label.yml
+oc apply -f <(sed -e "s/TARGET_NAMESPACE/$(oc project -q)/g" rules/require-service-account-and-label.yml)
 ```
 1. "Hello, World!" should be returned after invoking `greeting` service.
 1. Cleanup
