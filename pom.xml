@@ -55,6 +55,11 @@
                   </deployment>
                 </annotations>
               </resources>
+              <enricher>
+                <excludes>
+                  <exclude>spring-boot-health-check</exclude>
+                </excludes>
+              </enricher>
             </configuration>
           </plugin>
         </plugins>

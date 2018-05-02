@@ -161,6 +161,24 @@ objects:
                 fieldPath: metadata.namespace
           image: spring-boot-istio-security-name:BOOSTER_VERSION
           imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+              - curl
+              - http://localhost:8080/health
+            failureThreshold: 2
+            initialDelaySeconds: 60
+            periodSeconds: 3
+            timeoutSeconds: 1
+          readinessProbe:
+            exec:
+              command:
+              - curl
+              - http://localhost:8080/health
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
           name: spring-boot
           ports:
           - containerPort: 8080
