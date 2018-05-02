@@ -3,7 +3,6 @@ kind: Deployment
 spec:
   template:
     spec:
-      serviceAccountName: sa-greeting
       containers:
       - livenessProbe:
           failureThreshold: 2
