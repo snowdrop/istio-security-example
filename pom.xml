@@ -27,7 +27,7 @@
 
   <artifactId>spring-boot-istio-security-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.5.12-3-SNAPSHOT</version>
+  <version>1.5.13-1-SNAPSHOT</version>
 
   <name>Spring Boot - Istio - Security - Parent</name>
 
