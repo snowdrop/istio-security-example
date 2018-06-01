@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.openshift.booster</groupId>
+    <groupId>io.openshift</groupId>
     <artifactId>booster-parent</artifactId>
     <version>22</version>
   </parent>
@@ -29,6 +29,7 @@
   <packaging>pom</packaging>
   <version>1.5.13-3-SNAPSHOT</version>
 
+  <groupId>io.openshift.booster</groupId>
   <name>Spring Boot - Istio - Security - Parent</name>
 
   <properties>
