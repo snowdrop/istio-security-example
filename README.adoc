@@ -5,7 +5,7 @@ Showcase Istio TLS and ACL via a set of Spring Boot applications.
 
 == Prerequisites
 . Openshift 3.9 cluster
-. Istio 0.7.1 with authentication installed on the aforementioned cluster. To install Istio simply follow one of the following docs:
+. Istio 0.7.1 *with authentication* installed on the aforementioned cluster. To install Istio simply follow one of the following docs:
 .. https://istio.io/docs/setup/kubernetes/quick-start.html
 .. https://istio.io/docs/setup/kubernetes/ansible-install.html
 . Enable automatic sidecar injection for Istio (See https://istio.io/docs/setup/kubernetes/sidecar-injection.html[this] for details)
@@ -16,7 +16,7 @@ In order for Istio automatic sidecar injection to work properly, the following I
    This can be checked by inspecting the output of
 
    oc get configmap istio-inject -o jsonpath='{.data.config}' -n istio-system | grep policy
-   
+
 .. The `istio-sidecar-injector` `MutatingWebhookConfiguration` should not limit the injection to properly labeled namespaces.
    If Istio was installed using the default settings, then make sure the output of
 
