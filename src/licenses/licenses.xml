@@ -2,17 +2,6 @@
 <licenseSummary>
     <dependencies>
         <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>3.1</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.11</version>
@@ -78,18 +67,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.8.11.1</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <version>1.7.0</version>
+            <version>2.8.11.2</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -101,50 +79,6 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <version>2.2.0</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.9.0</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>2.9.0</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>rest-assured-common</artifactId>
-            <version>2.9.0</version>
-            <licenses>
-                <license>
-                    <name>Apache License 2.0</name>
-                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-                </license>
-            </licenses>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>xml-path</artifactId>
-            <version>2.9.0</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -175,6 +109,50 @@
             </licenses>
         </dependency>
         <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>3.1.0</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.1.0</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured-common</artifactId>
+            <version>3.1.0</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>xml-path</artifactId>
+            <version>3.1.0</version>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
@@ -182,6 +160,21 @@
                 <license>
                     <name>Apache License 2.0</name>
                     <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.12</version>
+            <licenses>
+                <license>
+                    <name>GNU General Public License, Version 2 with the Classpath Exception</name>
+                    <url>http://repository.jboss.org/licenses/gpl-2.0-ce.txt</url>
+                </license>
+                <license>
+                    <name>Common Development and Distribution License 1.1</name>
+                    <url>https://javaee.github.io/glassfish/LICENSE</url>
                 </license>
             </licenses>
         </dependency>
@@ -221,7 +214,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>3.4</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -496,7 +489,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -507,7 +500,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -518,7 +511,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -529,7 +522,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -540,7 +533,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -551,7 +544,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -562,7 +555,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -573,7 +566,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.3.17.RELEASE</version>
+            <version>4.3.18.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -584,7 +577,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -595,7 +588,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -606,7 +599,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -617,7 +610,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -628,7 +621,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -639,7 +632,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -650,7 +643,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -661,7 +654,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -672,7 +665,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -683,7 +676,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -694,7 +687,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test-autoconfigure</artifactId>
-            <version>1.5.13.RELEASE</version>
+            <version>1.5.14.RELEASE</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
