@@ -73,7 +73,7 @@ This scenario demonstrates a mutual transport level security between the service
 echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
 ```
 1. "Hello, World!" should be returned after invoking `greeting` service.
-1. Now modify greeting deployment to disable sidecar injection by replacing all `sidecar.istio.io/inject` values to `false`
+1. Now modify greeting deployment to disable sidecar injection by replacing both `sidecar.istio.io/inject` values to `false`
 +
 ```bash
 oc edit deploymentconfigs/spring-boot-istio-security-greeting
