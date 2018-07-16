@@ -5,7 +5,7 @@ Showcase Istio TLS and ACL via a set of Spring Boot applications.
 
 == Prerequisites
 . Openshift 3.9 cluster
-. Istio 0.7.1 *with authentication* installed on the aforementioned cluster. To install Istio simply follow one of the following docs:
+. Istio 0.8.0 *with authentication* installed on the aforementioned cluster. To install Istio simply follow one of the following docs:
 .. https://istio.io/docs/setup/kubernetes/quick-start.html
 .. https://istio.io/docs/setup/kubernetes/ansible-install.html
 . Enable automatic sidecar injection for Istio (See https://istio.io/docs/setup/kubernetes/sidecar-injection.html[this] for details)
@@ -28,11 +28,6 @@ is empty. It is advised however that you inspect the output of
 +
 to make sure that no other "filters" have been applied.
 
-. Expose services and Istio ingress:
-+
-```
-oc expose svc istio-ingress -n istio-system
-```
 . Login to the cluster with the admin user
 
 == Environment preparation
@@ -62,15 +57,21 @@ oc new-app --template=spring-boot-istio-security-name -p SOURCE_REPOSITORY_URL=h
 oc new-app --template=spring-boot-istio-security-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-security-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-greeting
 ```
 
+== Configure Istio gateway
+This application uses v1alpha3 routing API. Execute the following command to configure gateway and virtual service:
+```bash
+oc apply -f rules/gateway.yml
+```
+
 = Use Cases
 == Scenario #1. Mutual TLS
 
 This scenario demonstrates a mutual transport level security between the services.
 
-1. Open the booster’s web page via Istio ingress route
+1. Open the booster’s web page via Istio gateway route
 +
 ```bash
-echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
+echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
 ```
 1. "Hello, World!" should be returned after invoking `greeting` service.
 1. Now modify greeting deployment to disable sidecar injection by replacing both `sidecar.istio.io/inject` values to `false`
@@ -94,10 +95,10 @@ oc edit deploymentconfigs/spring-boot-istio-security-greeting
 
 This scenario demonstrates access control when using mutual TLS. In order to access a name service, calling service has to have a specific label and service account name.
 
-1. Open the booster’s web page via Istio ingress route
+1. Open the booster’s web page via Istio gateway route
 +
 ```bash
-echo http://$(oc get route istio-ingress -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
+echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
 ```
 1. "Hello, World!" should be returned after invoking `greeting` service.
 1. Configure Istio Mixer to block `greeting` service from accessing `name` service
@@ -116,6 +117,11 @@ oc apply -f <(sed -e "s/TARGET_NAMESPACE/$(oc project -q)/g" rules/require-servi
 +
 ```bash
 oc delete -f rules/require-service-account-and-label.yml
+```
+
+== Remove gateway configuration
+```bash
+oc delete -f rules/gateway.yml
 ```
 
 == Undeploy the application
