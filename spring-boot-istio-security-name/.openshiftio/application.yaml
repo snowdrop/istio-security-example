@@ -54,7 +54,7 @@ objects:
     labels:
       app: spring-boot-istio-security-name
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "1.5.15-2"
       group: io.openshift.booster
     name: runtime-spring-boot-istio-security-name
   spec:
