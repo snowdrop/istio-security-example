@@ -4,7 +4,6 @@ import io.fabric8.kubernetes.api.model.v4_0.Pod;
 import io.fabric8.openshift.api.model.v4_0.DeploymentConfig;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpStatus;
 import org.arquillian.cube.istio.api.IstioResource;
 import org.arquillian.cube.istio.impl.IstioAssistant;
@@ -16,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -79,22 +77,6 @@ public class OpenshiftIT {
         response = callGreetingApi();
         Assert.assertEquals("Api should return code 200",response.getStatusCode(),200);
         Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
-    }
-
-    /**
-     * DOES NOT WORK (YET)!!
-     * Waits for issue to be solved - https://github.com/snowdrop/spring-boot-istio-security-booster/issues/27
-     */
-//    @Test
-    public void modifyTemplateTest() throws IOException {
-        List<me.snowdrop.istio.api.model.IstioResource> resource=deployRouteRule("block-greeting-service.yml");
-
-        String loadResource = FileUtils.readFileToString(new File("../rules/require-service-account-and-label.yml"));
-        String modifiedResource = loadResource.replaceAll("TARGET_NAMESPACE",openShiftAssistant.getCurrentProjectName());
-
-        istioAssistant.undeployIstioResources(resource);
-        resource = istioAssistant.deployIstioResources(modifiedResource);
-        istioAssistant.undeployIstioResources(resource);
     }
 
     private List<me.snowdrop.istio.api.model.IstioResource> deployRouteRule(String routeRuleFile) throws IOException {
