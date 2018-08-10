@@ -58,7 +58,7 @@ public class OpenshiftIT {
 
         // call API with no restrictions
         Response response = callGreetingApi();
-        Assert.assertEquals("Api should return code 200",response.getStatusCode(),200);
+        Assert.assertEquals("Api should return code 200",200, response.getStatusCode());
         Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
 
         // redeploy the greeting service, without istio sidecar
@@ -67,7 +67,7 @@ public class OpenshiftIT {
 
         // call API, while calling service is not in istio mesh -> should result in error
         response = callGreetingApi();
-        Assert.assertEquals("Api should return code 503",response.getStatusCode(),503);
+        Assert.assertEquals("Api should return code 503",503,response.getStatusCode());
         Assert.assertTrue("Message should contain connection the \"reset\" word", response.asString().contains("reset"));
 
         // redeploy the greeting service, and enable istio in it again
@@ -75,7 +75,7 @@ public class OpenshiftIT {
 
         // call API while calling service is in istio service mesh -> should be OK
         response = callGreetingApi();
-        Assert.assertEquals("Api should return code 200",response.getStatusCode(),200);
+        Assert.assertEquals("Api should return code 200",200,response.getStatusCode());
         Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
     }
 
