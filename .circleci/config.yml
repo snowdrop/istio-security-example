@@ -26,7 +26,7 @@ jobs:
           sudo service docker restart
           echo "Configured Docker daemon with insecure-registry"
 
-          oc cluster up --istio
+          oc cluster up --istio --istio-auth
 
           # wait for the Kubernetes Job that starts the Istio installation to commence
           sleep 180
@@ -42,11 +42,8 @@ jobs:
           timeout 300s bash -c 'while [[ $(oc get deployment -l app=prometheus  -n istio-system -o json | jq ".items[0].metadata.name") == "prometheus" ]]; do sleep 10; done; echo ""'
           oc scale deployment -l app=prometheus -n istio-system  --replicas=0
 
-          timeout 300s bash -c 'while [[ $(oc get deployment -l app=egressgateway  -n istio-system -o json | jq ".items[0].metadata.name") == "istio-egressgateway" ]]; do sleep 10; done; echo ""'
-          oc scale deployment -l app=egressgateway -n istio-system  --replicas=0
-
-          timeout 300s bash -c 'while [[ $(oc get deployment -l app=security  -n istio-system -o json | jq ".items[0].metadata.name") == "istio-citadel" ]]; do sleep 10; done; echo ""'
-          oc scale deployment -l app=security -n istio-system  --replicas=0
+          timeout 300s bash -c 'while [[ $(oc get deployment -l app=istio-egressgateway  -n istio-system -o json | jq ".items[0].metadata.name") == "istio-egressgateway" ]]; do sleep 10; done; echo ""'
+          oc scale deployment -l app=istio-egressgateway -n istio-system  --replicas=0
 
           # wait for the istio components to stand up
           timeout 300s bash -c 'while [[ $(oc get pod -l istio=sidecar-injector  -n istio-system -o json | jq ".items[0].status.phase") == "Running" ]]; do sleep 20; done; echo ""'
