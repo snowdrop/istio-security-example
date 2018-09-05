@@ -27,4 +27,4 @@ spec:
             - http://localhost:8080/health
         resources:
           limits:
-            memory: "256Mi"
+            memory: "300Mi"
