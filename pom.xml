@@ -24,7 +24,7 @@
   <groupId>io.openshift.booster</groupId>
   <artifactId>spring-boot-istio-security-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.5.16-4-SNAPSHOT</version>
+  <version>1.5.16-5-SNAPSHOT</version>
   <properties>
     <openjdk18-openshift.version>1.3</openjdk18-openshift.version>
     <rest-assured.version>3.1.0</rest-assured.version>
