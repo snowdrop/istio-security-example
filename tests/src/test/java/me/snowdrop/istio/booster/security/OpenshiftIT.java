@@ -79,7 +79,7 @@ public class OpenshiftIT {
         Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
     }
 
-    private List<me.snowdrop.istio.api.model.IstioResource> deployRouteRule(String routeRuleFile) throws IOException {
+    private List<me.snowdrop.istio.api.IstioResource> deployRouteRule(String routeRuleFile) throws IOException {
         return istioAssistant.deployIstioResources(
                 Files.newInputStream(Paths.get("../rules/" + routeRuleFile)));
     }
