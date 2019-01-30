@@ -22,7 +22,7 @@
   <parent>
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-istio-security-parent</artifactId>
-    <version>1.5.19-1-SNAPSHOT</version>
+    <version>2.1.2-1-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-istio-security-name</artifactId>
