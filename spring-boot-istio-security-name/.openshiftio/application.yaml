@@ -170,7 +170,7 @@ objects:
             exec:
               command:
               - curl
-              - http://localhost:8080/health
+              - http://localhost:8080/actuator/health
             failureThreshold: 2
             initialDelaySeconds: 60
             periodSeconds: 3
@@ -179,7 +179,7 @@ objects:
             exec:
               command:
               - curl
-              - http://localhost:8080/health
+              - http://localhost:8080/actuator/health
             failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
