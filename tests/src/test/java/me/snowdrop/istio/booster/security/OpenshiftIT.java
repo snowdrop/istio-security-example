@@ -11,16 +11,19 @@ import org.arquillian.cube.openshift.impl.client.OpenShiftAssistant;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static org.awaitility.Awaitility.await;
 
@@ -41,6 +44,18 @@ public class OpenshiftIT {
 
     @ArquillianResource
     private OpenShiftAssistant openShiftAssistant;
+
+    List<me.snowdrop.istio.api.IstioResource> resources = null;
+
+    // undeploy all the resources even if test fail in progress
+    @After
+    public void clearResources(){
+        if (resources != null){
+            istioAssistant.undeployIstioResources(resources);
+        }
+        resources = null;
+    }
+
 
     @Test
     public void basicAccessTest() {
@@ -79,19 +94,58 @@ public class OpenshiftIT {
         Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
     }
 
+    @Test
+    public void denyAccessTest() throws IOException {
+        waitUntilApplicationIsReady();
+        resources = deployRouteRule("block-greeting-service.yml");
+
+        // wait for rule to take effect
+        waitForUrlForStatus(ingressGatewayURL + "api/greeting",500);
+
+        // call API, while access to service should be blocked -> should result in error
+        Response response = callGreetingApi();
+        Assert.assertEquals("Api should return code 500",500,response.getStatusCode());
+        Assert.assertTrue("Message should contain \"403 Forbidden\"", response.asString().contains("403 Forbidden"));
+    }
+
+    @Test
+    public void allowAccessTest() throws InterruptedException, IOException {
+        waitUntilApplicationIsReady();
+        String allowAccessRule = readFileContent("../rules/require-service-account-and-label.yml")
+                .replaceAll("TARGET_NAMESPACE",openShiftAssistant.getCurrentProjectName());
+
+        resources = istioAssistant.deployIstioResources(allowAccessRule);
+
+        // wait for rule to take effect
+        Thread.sleep(TimeUnit.MINUTES.toMillis(1));
+
+        Response response = callGreetingApi();
+        Assert.assertEquals("Api should return code 200",200,response.getStatusCode());
+        Assert.assertTrue("Message should contain the \"Hello\" word", response.asString().contains("Hello"));
+    }
+
+    private String readFileContent(String path) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        Stream<String> stream = Files.lines( Paths.get(path),
+                StandardCharsets.UTF_8);
+        stream.forEach(s -> contentBuilder.append(s).append("\n"));
+
+        return contentBuilder.toString();
+    }
+
     private List<me.snowdrop.istio.api.IstioResource> deployRouteRule(String routeRuleFile) throws IOException {
         return istioAssistant.deployIstioResources(
                 Files.newInputStream(Paths.get("../rules/" + routeRuleFile)));
     }
 
     private void waitUntilApplicationIsReady() {
-        waitForUrlToBeReady(ingressGatewayURL.toString());
+        waitForUrlForStatus(ingressGatewayURL.toString(),200);
     }
 
-    private void waitForUrlToBeReady(String URL) {
+    private void waitForUrlForStatus(String URL, int statusCode) {
         await()
                 .pollInterval(1, TimeUnit.SECONDS)
-                .atMost(1, TimeUnit.MINUTES)
+                .atMost(3, TimeUnit.MINUTES)
                 .untilAsserted(() ->
                         RestAssured
                                 .given()
@@ -99,7 +153,7 @@ public class OpenshiftIT {
                                 .when()
                                 .get()
                                 .then()
-                                .statusCode(200)
+                                .statusCode(statusCode)
                 );
     }
 
@@ -142,6 +196,6 @@ public class OpenshiftIT {
                 );
 
         // wait for new pod to be ready
-        waitForUrlToBeReady(urlToWaitFor);
+        waitForUrlForStatus(urlToWaitFor,200);
     }
 }
