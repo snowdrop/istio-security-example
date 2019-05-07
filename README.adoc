@@ -32,8 +32,8 @@ Run the following commands to apply and execute the OpenShift templates that wil
 ```bash
 find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
 
-oc new-app --template=spring-boot-istio-security-name -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-security-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-name
-oc new-app --template=spring-boot-istio-security-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/spring-boot-istio-security-booster -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-greeting
+oc new-app --template=spring-boot-istio-security-name -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/istio-security-example -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-name
+oc new-app --template=spring-boot-istio-security-greeting -p SOURCE_REPOSITORY_URL=https://github.com/snowdrop/istio-security-example -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=spring-boot-istio-security-greeting
 ```
 
 == Configure Istio gateway
@@ -47,7 +47,7 @@ oc apply -f rules/gateway.yml
 
 This scenario demonstrates a mutual transport level security between the services.
 
-1. Open the booster’s web page via Istio gateway route
+1. Open the example’s web page via Istio gateway route
 +
 ```bash
 echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/
@@ -58,7 +58,7 @@ echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}'
 ```bash
 oc edit deploymentconfigs/spring-boot-istio-security-greeting
 ```
-1. Open the booster’s web page via `greeting` service’s route
+1. Open the example’s web page via `greeting` service’s route
 +
 ```bash
 echo http://$(oc get route spring-boot-istio-security-greeting -o jsonpath='{.spec.host}{"\n"}' -n $(oc project -q))/
@@ -74,7 +74,7 @@ oc edit deploymentconfigs/spring-boot-istio-security-greeting
 
 This scenario demonstrates access control when using mutual TLS. In order to access a name service, calling service has to have a specific label and service account name.
 
-1. Open the booster’s web page via Istio gateway route
+1. Open the example’s web page via Istio gateway route
 +
 ```bash
 echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/

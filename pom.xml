@@ -21,8 +21,8 @@
     <artifactId>booster-parent</artifactId>
     <version>23</version>
   </parent>
-  <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-istio-security-parent</artifactId>
+  <groupId>dev.snowdrop.example</groupId>
+  <artifactId>istio-security</artifactId>
   <packaging>pom</packaging>
   <version>1.5.19-3-SNAPSHOT</version>
   <properties>
