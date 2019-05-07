@@ -1,4 +1,4 @@
-package me.snowdrop.istio.booster.security;
+package me.snowdrop.istio.example.security;
 
 import io.fabric8.kubernetes.api.model.v4_0.Pod;
 import io.fabric8.openshift.api.model.v4_0.DeploymentConfig;

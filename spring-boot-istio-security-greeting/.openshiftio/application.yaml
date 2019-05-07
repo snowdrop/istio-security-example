@@ -50,7 +50,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: sa-greeting
 - apiVersion: v1
   kind: ImageStream
@@ -59,7 +59,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
   spec: {}
 - apiVersion: v1
@@ -69,7 +69,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: runtime-spring-boot-istio-security-greeting
   spec:
     tags:
@@ -84,7 +84,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
   spec:
     output:
@@ -130,7 +130,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
   spec:
     ports:
@@ -141,7 +141,7 @@ objects:
     selector:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
-      group: io.openshift.booster
+      group: dev.snowdrop.example
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -149,7 +149,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
   spec:
     replicas: 1
@@ -157,7 +157,7 @@ objects:
     selector:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     strategy:
       rollingParams:
         timeoutSeconds: 3600
@@ -170,7 +170,7 @@ objects:
           app: spring-boot-istio-security-greeting
           provider: snowdrop
           version: "BOOSTER_VERSION"
-          group: io.openshift.booster
+          group: dev.snowdrop.example
       spec:
         containers:
         - env:
@@ -230,7 +230,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
   spec:
     port:
@@ -245,7 +245,7 @@ objects:
       app: spring-boot-istio-security-greeting
       provider: snowdrop
       version: "BOOSTER_VERSION"
-      group: io.openshift.booster
+      group: dev.snowdrop.example
     name: spring-boot-istio-security-greeting
     annotations:
       kubernetes.io/ingress.class: istio
