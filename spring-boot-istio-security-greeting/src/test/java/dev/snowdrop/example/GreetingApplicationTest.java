@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
-import io.openshift.booster.service.NameServiceProperties;
+import dev.snowdrop.example.service.NameServiceProperties;
 import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;

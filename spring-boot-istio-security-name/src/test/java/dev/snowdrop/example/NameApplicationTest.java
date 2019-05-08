@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example;
 
 import io.restassured.RestAssured;
 import org.junit.Before;

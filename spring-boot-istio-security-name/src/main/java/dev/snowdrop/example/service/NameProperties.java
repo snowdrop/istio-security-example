@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@Service
-public class NameService {
+/**
+ * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
+ */
+@Component
+@ConfigurationProperties
+public class NameProperties {
 
-    private final RestTemplate restTemplate;
-
-    private final NameServiceProperties properties;
-
-    public NameService(RestTemplate restTemplate, NameServiceProperties properties) {
-        this.restTemplate = restTemplate;
-        this.properties = properties;
-    }
+    private String name = "World";
 
     public String getName() {
-        return restTemplate.getForObject(properties.getUrl(), String.class);
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

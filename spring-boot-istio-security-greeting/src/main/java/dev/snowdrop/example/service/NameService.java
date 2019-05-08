@@ -14,22 +14,25 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-@Component
-@ConfigurationProperties("name")
-public class NameServiceProperties {
+@Service
+public class NameService {
 
-    private String url = "http://spring-boot-istio-security-name:8080/api/name";
+    private final RestTemplate restTemplate;
 
-    public String getUrl() {
-        return url;
+    private final NameServiceProperties properties;
+
+    public NameService(RestTemplate restTemplate, NameServiceProperties properties) {
+        this.restTemplate = restTemplate;
+        this.properties = properties;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getName() {
+        return restTemplate.getForObject(properties.getUrl(), String.class);
     }
+
 }
