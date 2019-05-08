@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.openshift.booster;
+package dev.snowdrop.example.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
-public class NameApplication {
+@RestController
+public class NameController {
 
-    public static void main(String[] args) {
-        SpringApplication.run(NameApplication.class, args);
+    private final NameProperties nameProperties;
+
+    public NameController(NameProperties nameProperties) {
+        this.nameProperties = nameProperties;
+    }
+
+    @RequestMapping("/api/name")
+    public String getName() {
+        return nameProperties.getName();
     }
 
 }

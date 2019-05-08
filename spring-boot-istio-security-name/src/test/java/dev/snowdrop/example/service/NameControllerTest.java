@@ -14,42 +14,37 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example.service;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NameServiceTest {
+public class NameControllerTest {
 
     @Mock
-    private RestTemplate mockRestTemplate;
+    private NameProperties mockNameProperties;
 
-    @Mock
-    private NameServiceProperties mockNameServiceProperties;
-
-    private NameService nameService;
+    private NameController nameController;
 
     @Before
     public void before() {
-        nameService = new NameService(mockRestTemplate, mockNameServiceProperties);
+        nameController = new NameController(mockNameProperties);
     }
 
     @Test
     public void shouldGetName() {
-        given(mockNameServiceProperties.getUrl()).willReturn("test-host");
-        given(mockRestTemplate.getForObject("test-host", String.class)).willReturn("test-name");
+        given(mockNameProperties.getName()).willReturn("Test");
 
-        String name = nameService.getName();
+        String name = nameController.getName();
 
-        assertThat(name).isEqualTo("test-name");
+        assertThat(name).isEqualTo("Test");
     }
 
 }
