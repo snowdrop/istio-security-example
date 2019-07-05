@@ -15,7 +15,18 @@ Create a new project/namespace on the cluster. This is where your application wi
 
 ```bash
 oc new-project <whatever valid project name you want>
+oc adm policy add-scc-to-user anyuid -z default -n <whatever valid project name you want>
+oc adm policy add-scc-to-user privileged -z default -n <whatever valid project name you want>
 ```
+
+istio security greeting service run with `sa-greeting` account.
+```bash
+oc adm policy add-scc-to-user anyuid -z sa-greeting -n <whatever valid project name you want>
+oc adm policy add-scc-to-user privileged -z sa-greeting -n <whatever valid project name you want>
+```
+
+
+
 
 == Build and deploy the application
 === With Fabric8 Maven Plugin (FMP)
