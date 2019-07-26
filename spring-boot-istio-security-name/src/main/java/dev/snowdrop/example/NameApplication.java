@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package io.openshift.booster.service;
+package dev.snowdrop.example;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author <a href="mailto:gytis@redhat.com">Gytis Trikleris</a>
- */
-@Component
-@ConfigurationProperties
-public class NameProperties {
+@SpringBootApplication
+public class NameApplication {
 
-    private String name = "World";
-
-    public String getName() {
-        return name;
+    public static void main(String[] args) {
+        SpringApplication.run(NameApplication.class, args);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -20,9 +20,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.openshift.booster</groupId>
-    <artifactId>spring-boot-istio-security-parent</artifactId>
-    <version>2.1.3-3-SNAPSHOT</version>
+    <groupId>dev.snowdrop.example</groupId>
+    <artifactId>istio-security</artifactId>
+    <version>2.1.6-3-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-istio-security-name</artifactId>
