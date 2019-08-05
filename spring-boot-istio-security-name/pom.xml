@@ -22,7 +22,7 @@
   <parent>
     <groupId>dev.snowdrop.example</groupId>
     <artifactId>istio-security</artifactId>
-    <version>2.1.6-3-SNAPSHOT</version>
+    <version>2.1.6-3</version>
   </parent>
 
   <artifactId>spring-boot-istio-security-name</artifactId>
